@@ -1,0 +1,2000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emirates Wealth Trading</title>
+    <style>
+        :root {
+            --primary: #4a6bff;
+            --secondary: #ff6b6b;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --info: #17a2b8;
+            --dark: #343a40;
+            --light: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 0 15px;
+            margin: 0 auto;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            background: linear-gradient(135deg, #4a6bff, #ff6b6b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: underline;
+            text-decoration-color: #4a6bff;
+            text-underline-offset: 8px;
+        }
+        
+        /* Auth Pages */
+        .auth-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            padding: 2rem;
+        }
+        
+        .auth-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            transition: transform 0.3s ease;
+        }
+        
+        .auth-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .auth-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.2);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .mt-3 {
+            margin-top: 1rem;
+        }
+        
+        .link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Dashboard Styles */
+        .dashboard {
+            padding: 1rem;
+        }
+        
+        .user-info {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .user-details {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-right: 1rem;
+        }
+        
+        .user-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .vip-badge {
+            background: linear-gradient(135deg, #ffc107, #ff6b6b);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+        }
+        
+        .balance-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 24px rgba(74, 107, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+        
+        .balance-card:hover {
+            transform: rotateY(10deg);
+        }
+        
+        .balance-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            transform: rotate(30deg);
+        }
+        
+        .balance-title {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+        
+        .balance-amount {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: #666;
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn-deposit {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+        
+        .btn-withdraw {
+            background: linear-gradient(135deg, #ff6b6b, #f783ac);
+        }
+        
+        .btn-referral {
+            background: linear-gradient(135deg, #17a2b8, #6f42c1);
+        }
+        
+        .btn-vip {
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+        }
+        
+        .transactions-list {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+        }
+        
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+        
+        .transaction-type {
+            font-weight: 600;
+        }
+        
+        .transaction-amount {
+            font-weight: 700;
+        }
+        
+        .deposit {
+            color: var(--success);
+        }
+        
+        .withdraw {
+            color: var(--danger);
+        }
+        
+        .bonus {
+            color: var(--warning);
+        }
+        
+        .news-banner {
+            background: linear-gradient(135deg, var(--info), #6f42c1);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        .news-content {
+            display: inline-block;
+            animation: scroll 20s linear infinite;
+        }
+        
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        /* VIP Packages */
+        .vip-packages {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .package-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 2px solid #eee;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+        
+        .package-card.coming-soon {
+            opacity: 0.7;
+            position: relative;
+        }
+        
+        .package-card.coming-soon::after {
+            content: 'Coming Soon';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--dark);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .package-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .package-return {
+            font-size: 0.875rem;
+            color: var(--success);
+            margin-bottom: 1rem;
+        }
+        
+        /* Deposit/Withdraw Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            padding: 1.5rem;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .amount-input {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .amount-input span {
+            font-size: 1.25rem;
+            margin-right: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .amount-input input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .file-upload {
+            margin-bottom: 1.5rem;
+        }
+        
+        .file-upload-label {
+            display: block;
+            padding: 1.5rem;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .file-upload-label:hover {
+            border-color: var(--primary);
+            background: rgba(74, 107, 255, 0.05);
+        }
+        
+        .file-upload-label i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .file-upload-label span {
+            display: block;
+            font-size: 0.875rem;
+            color: #666;
+        }
+        
+        .file-upload-input {
+            display: none;
+        }
+        
+        /* mPIN Modal */
+        .mpin-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .mpin-input {
+            width: 40px;
+            height: 50px;
+            margin: 0 5px;
+            text-align: center;
+            font-size: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .mpin-input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.2);
+        }
+        
+        /* Success Modal */
+        .success-modal {
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            color: var(--success);
+            margin-bottom: 1rem;
+        }
+        
+        .success-message {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        /* Profile Page */
+        .profile-form {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* About Page */
+        .about-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-section h2 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .about-section p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-link {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+        
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (min-width: 768px) {
+            .vip-packages {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification.active {
+            transform: translateX(0);
+        }
+        
+        .notification.success {
+            border-left: 4px solid var(--success);
+        }
+        
+        .notification.error {
+            border-left: 4px solid var(--danger);
+        }
+        
+        .notification-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+        
+        .notification-success {
+            color: var(--success);
+        }
+        
+        .notification-error {
+            color: var(--danger);
+        }
+        
+        .notification-message {
+            flex: 1;
+        }
+        
+        .notification-close {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: #666;
+            margin-left: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">Emirates Wealth Trading</div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Auth Pages (Login/Signup) -->
+        <div id="auth-container" class="auth-container">
+            <div class="auth-card">
+                <h2 class="auth-title" id="auth-title">Login</h2>
+                <form id="auth-form">
+                    <div class="form-group">
+                        <label for="email">Gmail Address</label>
+                        <input type="email" id="email" class="form-control" placeholder="Enter your Gmail" required>
+                    </div>
+                    <div class="form-group" id="password-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn" id="auth-button">Login</button>
+                </form>
+                <p class="text-center mt-3">
+                    <span id="auth-switch-text">Don't have an account?</span>
+                    <a href="#" class="link" id="auth-switch-link">Sign up</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Dashboard (Hidden by default) -->
+        <div id="dashboard" class="dashboard" style="display: none;">
+            <!-- User Info -->
+            <div class="user-info">
+                <div class="user-details">
+                    <div class="user-avatar" id="user-avatar">U</div>
+                    <div>
+                        <div class="user-name">
+                            <span id="username">User</span>
+                            <span class="vip-badge" id="vip-badge" style="display: none;">VIP</span>
+                        </div>
+                        <small id="user-email">user@example.com</small>
+                    </div>
+                </div>
+                <button id="logout-btn" class="btn btn-outline">Logout</button>
+            </div>
+
+            <!-- Balance Card -->
+            <div class="balance-card">
+                <div class="balance-title">Your Balance</div>
+                <div class="balance-amount">$<span id="balance">0.00</span></div>
+                <div class="action-buttons">
+                    <button class="btn btn-deposit" id="deposit-btn">Deposit</button>
+                    <button class="btn btn-withdraw" id="withdraw-btn">Withdraw</button>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="active-users">8,756</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">$2M+</div>
+                    <div class="stat-label">Daily Transactions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="referral-earnings">0.00</div>
+                    <div class="stat-label">Referral Earnings</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="daily-profit">0.00</div>
+                    <div class="stat-label">Daily Profit</div>
+                </div>
+            </div>
+
+            <!-- News Banner -->
+            <div class="news-banner">
+                <div class="news-content">
+                    🎉 Welcome to Emirates Wealth Trading! Earn 5-8% daily profit on your investments. New users get $5 bonus! 🎉
+                </div>
+            </div>
+
+            <!-- VIP Packages -->
+            <h3 class="section-title">VIP Packages</h3>
+            <div class="vip-packages">
+                <div class="package-card" data-amount="50">
+                    <div class="package-amount">$50</div>
+                    <div class="package-return">5.5% Daily Return</div>
+                    <button class="btn btn-vip invest-btn">Invest Now</button>
+                </div>
+                <div class="package-card" data-amount="100">
+                    <div class="package-amount">$100</div>
+                    <div class="package-return">6.0% Daily Return</div>
+                    <button class="btn btn-vip invest-btn">Invest Now</button>
+                </div>
+                <div class="package-card" data-amount="300">
+                    <div class="package-amount">$300</div>
+                    <div class="package-return">6.5% Daily Return</div>
+                    <button class="btn btn-vip invest-btn">Invest Now</button>
+                </div>
+                <div class="package-card" data-amount="500">
+                    <div class="package-amount">$500</div>
+                    <div class="package-return">7.0% Daily Return</div>
+                    <button class="btn btn-vip invest-btn">Invest Now</button>
+                </div>
+                <div class="package-card" data-amount="1000">
+                    <div class="package-amount">$1000</div>
+                    <div class="package-return">7.5% Daily Return</div>
+                    <button class="btn btn-vip invest-btn">Invest Now</button>
+                </div>
+                <div class="package-card coming-soon" data-amount="2000">
+                    <div class="package-amount">$2000</div>
+                    <div class="package-return">8.0% Daily Return</div>
+                    <button class="btn btn-vip" disabled>Coming Soon</button>
+                </div>
+                <div class="package-card coming-soon" data-amount="5000">
+                    <div class="package-amount">$5000</div>
+                    <div class="package-return">8.5% Daily Return</div>
+                    <button class="btn btn-vip" disabled>Coming Soon</button>
+                </div>
+                <div class="package-card coming-soon" data-amount="10000">
+                    <div class="package-amount">$10000</div>
+                    <div class="package-return">9.0% Daily Return</div>
+                    <button class="btn btn-vip" disabled>Coming Soon</button>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <h3 class="section-title">Recent Transactions</h3>
+            <div class="transactions-list">
+                <div id="transactions-container">
+                    <!-- Transactions will be added here dynamically -->
+                    <div class="transaction-item">
+                        <div class="transaction-type">Welcome Bonus</div>
+                        <div class="transaction-amount bonus">+$5.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Referral Section -->
+            <h3 class="section-title">Refer & Earn</h3>
+            <div class="stat-card">
+                <div class="stat-value" id="referral-count">0</div>
+                <div class="stat-label">People Referred</div>
+                <button class="btn btn-referral mt-3" id="referral-btn">Copy Referral Link</button>
+                <small class="text-center mt-1" id="referral-code">Your code: <span id="referral-code-value">EWT12345</span></small>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="action-buttons" style="margin-top: 1.5rem;">
+                <button class="btn btn-outline" id="profile-btn">Profile</button>
+                <button class="btn btn-outline" id="about-btn">About Us</button>
+            </div>
+        </div>
+
+        <!-- Profile Page (Hidden by default) -->
+        <div id="profile-page" style="display: none;">
+            <h2 class="section-title">Your Profile</h2>
+            <form id="profile-form" class="profile-form">
+                <div class="form-group">
+                    <label for="full-name">Full Name</label>
+                    <input type="text" id="full-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <input type="text" id="country" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="bank-details">Bank Details</label>
+                    <textarea id="bank-details" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="binance-id">Binance ID</label>
+                    <input type="text" id="binance-id" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="trc20-address">TRC20 Wallet Address</label>
+                    <input type="text" id="trc20-address" class="form-control" required>
+                </div>
+                <button type="submit" class="btn">Save Profile</button>
+            </form>
+            <button class="btn btn-outline" id="back-to-dashboard">Back to Dashboard</button>
+        </div>
+
+        <!-- About Page (Hidden by default) -->
+        <div id="about-page" style="display: none;">
+            <h2 class="section-title">About Emirates Wealth Trading</h2>
+            <div class="about-section">
+                <h3>Our Mission</h3>
+                <p>Emirates Wealth Trading is dedicated to providing secure and profitable investment opportunities to our clients. We leverage cutting-edge technology and expert financial strategies to deliver consistent returns.</p>
+                
+                <h3>Our Services</h3>
+                <p>We offer a range of VIP investment packages with daily returns from 5% to 8%. Our platform is designed to be user-friendly and accessible to everyone, regardless of their investment experience.</p>
+                
+                <h3>Security</h3>
+                <p>Your security is our top priority. We use advanced encryption and secure agent-provided one-time codes for all transactions to ensure the safety of your funds.</p>
+                
+                <h3>Contact Us</h3>
+                <p>Email: support@emirateswealth.com</p>
+                <p>Telegram: @EmiratesWealthSupport</p>
+                <p>Phone: +971 50 123 4567</p>
+            </div>
+            <button class="btn btn-outline" id="back-to-dashboard-2">Back to Dashboard</button>
+        </div>
+    </main>
+
+    <!-- Deposit Modal -->
+    <div class="modal-overlay" id="deposit-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Deposit Funds</h3>
+                <button class="modal-close" id="close-deposit-modal">&times;</button>
+            </div>
+            <div id="deposit-step-1">
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <select class="form-control" id="deposit-method">
+                        <option value="trc20">TRC20 (Recommended)</option>
+                        <option value="erc20">ERC20</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Wallet Address</label>
+                    <div class="form-control" style="background: #f5f7fa; font-size: 0.8rem; word-break: break-all;" id="wallet-address">
+                        TFXtR9SRtUFjxHTDUTW3MCah3um8qxDwFt
+                    </div>
+                    <small class="text-center mt-1">Please send exact amount to this address</small>
+                </div>
+                <div class="form-group">
+                    <label for="deposit-amount">Amount (USD)</label>
+                    <input type="number" id="deposit-amount" class="form-control" placeholder="Enter amount" min="10" required>
+                </div>
+                <div class="file-upload">
+                    <label for="deposit-receipt" class="file-upload-label">
+                        <i>📁</i>
+                        <span>Upload Payment Proof</span>
+                        <span id="deposit-file-name">No file chosen</span>
+                    </label>
+                    <input type="file" id="deposit-receipt" class="file-upload-input" accept="image/*,.pdf">
+                </div>
+                <button class="btn btn-deposit" id="deposit-submit">Submit Deposit</button>
+            </div>
+            <div id="deposit-step-2" style="display: none;">
+                <div class="mpin-container">
+                    <input type="text" class="mpin-input" maxlength="1" data-index="0">
+                    <input type="text" class="mpin-input" maxlength="1" data-index="1">
+                    <input type="text" class="mpin-input" maxlength="1" data-index="2">
+                    <input type="text" class="mpin-input" maxlength="1" data-index="3">
+                    <input type="text" class="mpin-input" maxlength="1" data-index="4">
+                    <input type="text" class="mpin-input" maxlength="1" data-index="5">
+                </div>
+                <p class="text-center">Enter 6-digit code provided by agent</p>
+                <button class="btn btn-deposit" id="deposit-confirm">Confirm Deposit</button>
+            </div>
+            <div id="deposit-success" class="success-modal" style="display: none;">
+                <div class="success-icon">✓</div>
+                <div class="success-message">Deposit Successful!</div>
+                <p>Your deposit of $<span id="deposit-success-amount">0</span> is being processed.</p>
+                <p>Balance will update in 2-5 minutes.</p>
+                <button class="btn" id="deposit-success-close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Withdraw Modal -->
+    <div class="modal-overlay" id="withdraw-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Withdraw Funds</h3>
+                <button class="modal-close" id="close-withdraw-modal">&times;</button>
+            </div>
+            <div id="withdraw-step-1">
+                <div class="form-group">
+                    <label for="withdraw-method">Withdrawal Method</label>
+                    <select class="form-control" id="withdraw-method">
+                        <option value="trc20">TRC20 (Recommended)</option>
+                        <option value="erc20">ERC20</option>
+                        <option value="bank">Bank Transfer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="withdraw-amount">Amount (USD)</label>
+                    <input type="number" id="withdraw-amount" class="form-control" placeholder="Enter amount" min="10" required>
+                </div>
+                <div class="form-group">
+                    <label for="withdraw-wallet">Wallet Address</label>
+                    <input type="text" id="withdraw-wallet" class="form-control" placeholder="Enter your wallet address" required>
+                </div>
+                <button class="btn btn-withdraw" id="withdraw-submit">Submit Withdrawal</button>
+            </div>
+            <div id="withdraw-step-2" style="display: none;">
+                <div class="mpin-container">
+                    <input type="text" class="mpin-input" maxlength="1" data-index="0">
+                    <input type="text" class="mpin-input" maxlength="1" data-index="1">
+                    <input type="text" class="mpin-input" maxlength="1" data-index="2">
+                    <input type="text" class="mpin-input" maxlength="1" data-index="3">
+                    <input type="text" class="mpin-input" maxlength="1" data-index="4">
+                    <input type="text" class="mpin-input" maxlength="1" data-index="5">
+                </div>
+                <p class="text-center">Enter 6-digit code provided by agent</p>
+                <button class="btn btn-withdraw" id="withdraw-confirm">Confirm Withdrawal</button>
+            </div>
+            <div id="withdraw-success" class="success-modal" style="display: none;">
+                <div class="success-icon">✓</div>
+                <div class="success-message">Withdrawal Successful!</div>
+                <p>Your withdrawal of $<span id="withdraw-success-amount">0</span> is being processed.</p>
+                <p>Funds will arrive in 2-5 minutes.</p>
+                <button class="btn" id="withdraw-success-close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIP Investment Modal -->
+    <div class="modal-overlay" id="invest-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Invest in VIP Package</h3>
+                <button class="modal-close" id="close-invest-modal">&times;</button>
+            </div>
+            <div id="invest-step-1">
+                <div class="form-group">
+                    <label>Package Amount</label>
+                    <div class="form-control" style="background: #f5f7fa; font-weight: 700;" id="package-amount-display">$0</div>
+                </div>
+                <div class="form-group">
+                    <label>Daily Return</label>
+                    <div class="form-control" style="background: #f5f7fa; font-weight: 700;" id="daily-return-display">0%</div>
+                </div>
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <select class="form-control" id="invest-method">
+                        <option value="trc20">TRC20 (Recommended)</option>
+                        <option value="erc20">ERC20</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Wallet Address</label>
+                    <div class="form-control" style="background: #f5f7fa; font-size: 0.8rem; word-break: break-all;" id="invest-wallet-address">
+                        TFXtR9SRtUFjxHTDUTW3MCah3um8qxDwFt
+                    </div>
+                    <small class="text-center mt-1">Please send exact amount to this address</small>
+                </div>
+                <div class="file-upload">
+                    <label for="invest-receipt" class="file-upload-label">
+                        <i>📁</i>
+                        <span>Upload Payment Proof</span>
+                        <span id="invest-file-name">No file chosen</span>
+                    </label>
+                    <input type="file" id="invest-receipt" class="file-upload-input" accept="image/*,.pdf">
+                </div>
+                <button class="btn btn-vip" id="invest-submit">Submit Investment</button>
+            </div>
+            <div id="invest-step-2" style="display: none;">
+                <div class="mpin-container">
+                    <input type="text" class="mpin-input" maxlength="1" data-index="0">
+                    <input type="text" class="mpin-input" maxlength="1" data-index="1">
+                    <input type="text" class="mpin-input" maxlength="1" data-index="2">
+                    <input type="text" class="mpin-input" maxlength="1" data-index="3">
+                    <input type="text" class="mpin-input" maxlength="1" data-index="4">
+                    <input type="text" class="mpin-input" maxlength="1" data-index="5">
+                </div>
+                <p class="text-center">Enter 6-digit code provided by agent</p>
+                <button class="btn btn-vip" id="invest-confirm">Confirm Investment</button>
+            </div>
+            <div id="invest-success" class="success-modal" style="display: none;">
+                <div class="success-icon">✓</div>
+                <div class="success-message">Investment Successful!</div>
+                <p>Your VIP package of $<span id="invest-success-amount">0</span> is now active.</p>
+                <p>Daily returns will be credited every 24 hours.</p>
+                <button class="btn" id="invest-success-close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <div class="notification-icon" id="notification-icon">!</div>
+        <div class="notification-message" id="notification-message">This is a notification message</div>
+        <button class="notification-close" id="notification-close">&times;</button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#" class="footer-link">Terms</a>
+            <a href="#" class="footer-link">Privacy</a>
+            <a href="#" class="footer-link">Support</a>
+        </div>
+        <p>&copy; 2023 Emirates Wealth Trading. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Pre-generated codes
+        const depositCodes = [
+            '823741', '912346', '556203', '174932', '695208', '312478', '478256', '230695', '867401', '359284',
+            '784512', '146907', '903856', '258147', '678940', '410932', '512783', '307845', '926451', '198754',
+            '509863', '472186', '345981', '782619', '169347', '806421', '930572', '251697', '627849', '593210',
+            '412896', '589473', '761932', '143298', '378215', '290463', '894376', '612359', '473905', '853217',
+            '269540', '130958', '592831', '740185', '869203', '913425', '541980', '438592', '796210', '285319',
+            '375690', '459201', '690518', '873415', '592407', '214589', '180263', '519374', '640198', '954120',
+            '382091', '710495', '609583', '238509', '876129', '401925', '195370', '519284', '248613', '703185',
+            '815496', '319452', '208347', '591843', '302658', '927315', '496301', '812359', '314208', '140268',
+            '659103', '572183', '390582', '184205', '216935', '304728', '198420', '947362', '758231', '120394',
+            '648219', '893027', '374869', '920817', '143285', '705318', '594182', '872390', '521683', '234809'
+        ];
+
+        const withdrawCodes = [
+            '291847', '508296', '374980', '862149', '730592', '918540', '182649', '475930', '623807', '905128',
+            '736210', '820194', '359281', '604859', '248197', '105924', '930658', '459712', '783104', '821390',
+            '209347', '475839', '692813', '519204', '804325', '658419', '913028', '742158', '621893', '859431',
+            '139582', '296450', '485903', '925801', '658203', '593801', '819573', '720459', '385291', '496185',
+            '820591', '164930', '582039', '340198', '819460', '790832', '402985', '502198', '218947', '692048',
+            '709528', '408291', '659482', '281039', '572184', '408296', '268509', '503192', '164932', '896215',
+            '731508', '340291', '190825', '402915', '569183', '309582', '582093', '915823', '682093', '219358',
+            '920583', '820193', '159283', '539218', '402918', '295083', '820395', '249183', '502918', '208395',
+            '918205', '839205', '482095', '109238', '920584', '719204', '495203', '810492', '105928', '584092',
+            '920184', '403928', '582194', '209384', '820395', '402195', '592038', '920384', '140295', '948205'
+        ];
+
+        // Used codes storage
+        let usedDepositCodes = JSON.parse(localStorage.getItem('usedDepositCodes')) || [];
+        let usedWithdrawCodes = JSON.parse(localStorage.getItem('usedWithdrawCodes')) || [];
+
+        // DOM Elements
+        const authContainer = document.getElementById('auth-container');
+        const dashboard = document.getElementById('dashboard');
+        const profilePage = document.getElementById('profile-page');
+        const aboutPage = document.getElementById('about-page');
+        const authTitle = document.getElementById('auth-title');
+        const authForm = document.getElementById('auth-form');
+        const authButton = document.getElementById('auth-button');
+        const authSwitchText = document.getElementById('auth-switch-text');
+        const authSwitchLink = document.getElementById('auth-switch-link');
+        const passwordGroup = document.getElementById('password-group');
+        const logoutBtn = document.getElementById('logout-btn');
+        const userAvatar = document.getElementById('user-avatar');
+        const username = document.getElementById('username');
+        const userEmail = document.getElementById('user-email');
+        const vipBadge = document.getElementById('vip-badge');
+        const balance = document.getElementById('balance');
+        const referralEarnings = document.getElementById('referral-earnings');
+        const dailyProfit = document.getElementById('daily-profit');
+        const transactionsContainer = document.getElementById('transactions-container');
+        const referralCodeValue = document.getElementById('referral-code-value');
+        const referralBtn = document.getElementById('referral-btn');
+        const profileBtn = document.getElementById('profile-btn');
+        const aboutBtn = document.getElementById('about-btn');
+        const backToDashboard = document.getElementById('back-to-dashboard');
+        const backToDashboard2 = document.getElementById('back-to-dashboard-2');
+        const depositBtn = document.getElementById('deposit-btn');
+        const withdrawBtn = document.getElementById('withdraw-btn');
+        const depositModal = document.getElementById('deposit-modal');
+        const withdrawModal = document.getElementById('withdraw-modal');
+        const closeDepositModal = document.getElementById('close-deposit-modal');
+        const closeWithdrawModal = document.getElementById('close-withdraw-modal');
+        const depositStep1 = document.getElementById('deposit-step-1');
+        const depositStep2 = document.getElementById('deposit-step-2');
+        const depositSuccess = document.getElementById('deposit-success');
+        const depositSubmit = document.getElementById('deposit-submit');
+        const depositConfirm = document.getElementById('deposit-confirm');
+        const depositSuccessClose = document.getElementById('deposit-success-close');
+        const depositAmount = document.getElementById('deposit-amount');
+        const depositSuccessAmount = document.getElementById('deposit-success-amount');
+        const depositMethod = document.getElementById('deposit-method');
+        const walletAddress = document.getElementById('wallet-address');
+        const depositReceipt = document.getElementById('deposit-receipt');
+        const depositFileName = document.getElementById('deposit-file-name');
+        const withdrawStep1 = document.getElementById('withdraw-step-1');
+        const withdrawStep2 = document.getElementById('withdraw-step-2');
+        const withdrawSuccess = document.getElementById('withdraw-success');
+        const withdrawSubmit = document.getElementById('withdraw-submit');
+        const withdrawConfirm = document.getElementById('withdraw-confirm');
+        const withdrawSuccessClose = document.getElementById('withdraw-success-close');
+        const withdrawAmount = document.getElementById('withdraw-amount');
+        const withdrawSuccessAmount = document.getElementById('withdraw-success-amount');
+        const withdrawMethod = document.getElementById('withdraw-method');
+        const withdrawWallet = document.getElementById('withdraw-wallet');
+        const investModal = document.getElementById('invest-modal');
+        const closeInvestModal = document.getElementById('close-invest-modal');
+        const investStep1 = document.getElementById('invest-step-1');
+        const investStep2 = document.getElementById('invest-step-2');
+        const investSuccess = document.getElementById('invest-success');
+        const investSubmit = document.getElementById('invest-submit');
+        const investConfirm = document.getElementById('invest-confirm');
+        const investSuccessClose = document.getElementById('invest-success-close');
+        const packageAmountDisplay = document.getElementById('package-amount-display');
+        const dailyReturnDisplay = document.getElementById('daily-return-display');
+        const investMethod = document.getElementById('invest-method');
+        const investWalletAddress = document.getElementById('invest-wallet-address');
+        const investReceipt = document.getElementById('invest-receipt');
+        const investFileName = document.getElementById('invest-file-name');
+        const investSuccessAmount = document.getElementById('invest-success-amount');
+        const notification = document.getElementById('notification');
+        const notificationIcon = document.getElementById('notification-icon');
+        const notificationMessage = document.getElementById('notification-message');
+        const notificationClose = document.getElementById('notification-close');
+        const profileForm = document.getElementById('profile-form');
+        const fullName = document.getElementById('full-name');
+        const country = document.getElementById('country');
+        const phone = document.getElementById('phone');
+        const bankDetails = document.getElementById('bank-details');
+        const binanceId = document.getElementById('binance-id');
+        const trc20Address = document.getElementById('trc20-address');
+        const investBtns = document.querySelectorAll('.invest-btn');
+        const activeUsers = document.getElementById('active-users');
+        const referralCount = document.getElementById('referral-count');
+
+        // State variables
+        let isLogin = true;
+        let currentUser = null;
+        let currentPackageAmount = 0;
+        let currentPackageReturn = 0;
+        let currentDepositAmount = 0;
+        let currentWithdrawAmount = 0;
+        let mpinInputs = [];
+
+        // Initialize the app
+        function init() {
+            checkAuth();
+            setupEventListeners();
+            updateActiveUsers();
+        }
+
+        // Check authentication status
+        function checkAuth() {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const loggedInUserEmail = localStorage.getItem('loggedInUser');
+            
+            if (loggedInUserEmail) {
+                const user = users.find(u => u.email === loggedInUserEmail);
+                if (user) {
+                    currentUser = user;
+                    showDashboard();
+                    
+                    // Check if profile is complete
+                    if (!user.profileComplete) {
+                        showProfilePage();
+                    }
+                    
+                    return;
+                }
+            }
+            
+            showAuth();
+        }
+
+        // Show authentication page
+        function showAuth() {
+            authContainer.style.display = 'flex';
+            dashboard.style.display = 'none';
+            profilePage.style.display = 'none';
+            aboutPage.style.display = 'none';
+            isLogin = true;
+            updateAuthUI();
+        }
+
+        // Show dashboard
+        function showDashboard() {
+            authContainer.style.display = 'none';
+            dashboard.style.display = 'block';
+            profilePage.style.display = 'none';
+            aboutPage.style.display = 'none';
+            updateUserUI();
+        }
+
+        // Show profile page
+        function showProfilePage() {
+            authContainer.style.display = 'none';
+            dashboard.style.display = 'none';
+            profilePage.style.display = 'block';
+            aboutPage.style.display = 'none';
+            
+            // Load profile data if exists
+            if (currentUser) {
+                fullName.value = currentUser.fullName || '';
+                country.value = currentUser.country || '';
+                phone.value = currentUser.phone || '';
+                bankDetails.value = currentUser.bankDetails || '';
+                binanceId.value = currentUser.binanceId || '';
+                trc20Address.value = currentUser.trc20Address || '';
+            }
+        }
+
+        // Show about page
+        function showAboutPage() {
+            authContainer.style.display = 'none';
+            dashboard.style.display = 'none';
+            profilePage.style.display = 'none';
+            aboutPage.style.display = 'block';
+        }
+
+        // Update authentication UI based on login/signup state
+        function updateAuthUI() {
+            if (isLogin) {
+                authTitle.textContent = 'Login';
+                authButton.textContent = 'Login';
+                authSwitchText.textContent = "Don't have an account?";
+                authSwitchLink.textContent = 'Sign up';
+                passwordGroup.style.display = 'block';
+            } else {
+                authTitle.textContent = 'Sign Up';
+                authButton.textContent = 'Sign Up';
+                authSwitchText.textContent = 'Already have an account?';
+                authSwitchLink.textContent = 'Login';
+                passwordGroup.style.display = 'block';
+            }
+        }
+
+        // Update user UI with current user data
+        function updateUserUI() {
+            if (!currentUser) return;
+            
+            // User info
+            userAvatar.textContent = currentUser.fullName ? currentUser.fullName.charAt(0).toUpperCase() : 'U';
+            username.textContent = currentUser.fullName || 'User';
+            userEmail.textContent = currentUser.email;
+            
+            // VIP badge
+            vipBadge.style.display = currentUser.vipLevel > 0 ? 'inline-block' : 'none';
+            
+            // Balance
+            balance.textContent = currentUser.balance.toFixed(2);
+            
+            // Referral code
+            if (!currentUser.referralCode) {
+                currentUser.referralCode = generateReferralCode();
+                saveUsers();
+            }
+            referralCodeValue.textContent = currentUser.referralCode;
+            
+            // Referral earnings
+            referralEarnings.textContent = currentUser.referralEarnings.toFixed(2);
+            
+            // Daily profit
+            if (currentUser.vipLevel > 0) {
+                const dailyReturn = getDailyReturn(currentUser.vipLevel);
+                dailyProfit.textContent = (currentUser.vipAmount * dailyReturn / 100).toFixed(2);
+            } else {
+                dailyProfit.textContent = '0.00';
+            }
+            
+            // Transactions
+            updateTransactionsUI();
+            
+            // Referral count
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const referralCountValue = users.filter(u => u.referredBy === currentUser.referralCode).length;
+            referralCount.textContent = referralCountValue;
+        }
+
+        // Update transactions list
+        function updateTransactionsUI() {
+            if (!currentUser || !currentUser.transactions) return;
+            
+            transactionsContainer.innerHTML = '';
+            
+            // Show only last 5 transactions
+            const recentTransactions = currentUser.transactions.slice(-5).reverse();
+            
+            recentTransactions.forEach(transaction => {
+                const transactionItem = document.createElement('div');
+                transactionItem.className = 'transaction-item';
+                
+                const typeDiv = document.createElement('div');
+                typeDiv.className = 'transaction-type';
+                typeDiv.textContent = transaction.type;
+                
+                const amountDiv = document.createElement('div');
+                amountDiv.className = `transaction-amount ${transaction.type.toLowerCase().includes('deposit') ? 'deposit' : 
+                                      transaction.type.toLowerCase().includes('withdraw') ? 'withdraw' : 'bonus'}`;
+                amountDiv.textContent = `${transaction.amount >= 0 ? '+' : ''}$${transaction.amount.toFixed(2)}`;
+                
+                transactionItem.appendChild(typeDiv);
+                transactionItem.appendChild(amountDiv);
+                transactionsContainer.appendChild(transactionItem);
+            });
+        }
+
+        // Generate a random referral code
+        function generateReferralCode() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let result = 'EWT';
+            for (let i = 0; i < 5; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+
+        // Get daily return percentage based on VIP level
+        function getDailyReturn(vipLevel) {
+            switch(vipLevel) {
+                case 1: return 5.5;
+                case 2: return 6.0;
+                case 3: return 6.5;
+                case 4: return 7.0;
+                case 5: return 7.5;
+                default: return 0;
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Auth form submit
+            authForm.addEventListener('submit', handleAuthSubmit);
+            
+            // Switch between login/signup
+            authSwitchLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                isLogin = !isLogin;
+                updateAuthUI();
+            });
+            
+            // Logout
+            logoutBtn.addEventListener('click', handleLogout);
+            
+            // Navigation buttons
+            profileBtn.addEventListener('click', showProfilePage);
+            aboutBtn.addEventListener('click', showAboutPage);
+            backToDashboard.addEventListener('click', showDashboard);
+            backToDashboard2.addEventListener('click', showDashboard);
+            
+            // Deposit/Withdraw buttons
+            depositBtn.addEventListener('click', () => {
+                depositModal.classList.add('active');
+                depositStep1.style.display = 'block';
+                depositStep2.style.display = 'none';
+                depositSuccess.style.display = 'none';
+            });
+            
+            withdrawBtn.addEventListener('click', () => {
+                withdrawModal.classList.add('active');
+                withdrawStep1.style.display = 'block';
+                withdrawStep2.style.display = 'none';
+                withdrawSuccess.style.display = 'none';
+            });
+            
+            // Close modals
+            closeDepositModal.addEventListener('click', () => depositModal.classList.remove('active'));
+            closeWithdrawModal.addEventListener('click', () => withdrawModal.classList.remove('active'));
+            depositSuccessClose.addEventListener('click', () => depositModal.classList.remove('active'));
+            withdrawSuccessClose.addEventListener('click', () => withdrawModal.classList.remove('active'));
+            
+            // Deposit modal
+            depositSubmit.addEventListener('click', handleDepositSubmit);
+            depositConfirm.addEventListener('click', handleDepositConfirm);
+            
+            // Withdraw modal
+            withdrawSubmit.addEventListener('click', handleWithdrawSubmit);
+            withdrawConfirm.addEventListener('click', handleWithdrawConfirm);
+            
+            // Deposit method change
+            depositMethod.addEventListener('change', updateWalletAddress);
+            
+            // File upload
+            depositReceipt.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    depositFileName.textContent = e.target.files[0].name;
+                } else {
+                    depositFileName.textContent = 'No file chosen';
+                }
+            });
+            
+            // Referral button
+            referralBtn.addEventListener('click', copyReferralLink);
+            
+            // Profile form
+            profileForm.addEventListener('submit', handleProfileSubmit);
+            
+            // VIP package buttons
+            investBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const packageCard = e.target.closest('.package-card');
+                    if (packageCard.classList.contains('coming-soon')) return;
+                    
+                    currentPackageAmount = parseInt(packageCard.dataset.amount);
+                    currentPackageReturn = parseFloat(packageCard.querySelector('.package-return').textContent.replace('% Daily Return', ''));
+                    
+                    packageAmountDisplay.textContent = `$${currentPackageAmount}`;
+                    dailyReturnDisplay.textContent = `${currentPackageReturn}%`;
+                    
+                    investModal.classList.add('active');
+                    investStep1.style.display = 'block';
+                    investStep2.style.display = 'none';
+                    investSuccess.style.display = 'none';
+                });
+            });
+            
+            // Invest modal
+            closeInvestModal.addEventListener('click', () => investModal.classList.remove('active'));
+            investSubmit.addEventListener('click', handleInvestSubmit);
+            investConfirm.addEventListener('click', handleInvestConfirm);
+            investSuccessClose.addEventListener('click', () => investModal.classList.remove('active'));
+            
+            // Invest method change
+            investMethod.addEventListener('change', updateInvestWalletAddress);
+            
+            // Invest file upload
+            investReceipt.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    investFileName.textContent = e.target.files[0].name;
+                } else {
+                    investFileName.textContent = 'No file chosen';
+                }
+            });
+            
+            // Notification close
+            notificationClose.addEventListener('click', () => {
+                notification.classList.remove('active');
+            });
+        }
+
+        // Handle authentication form submit
+        function handleAuthSubmit(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple email validation
+            if (!email.endsWith('@gmail.com')) {
+                showNotification('Please use a Gmail address', 'error');
+                return;
+            }
+            
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            
+            if (isLogin) {
+                // Login logic
+                const user = users.find(u => u.email === email && u.password === password);
+                if (user) {
+                    currentUser = user;
+                    localStorage.setItem('loggedInUser', email);
+                    showDashboard();
+                    
+                    // Check if profile is complete
+                    if (!user.profileComplete) {
+                        showProfilePage();
+                    }
+                } else {
+                    showNotification('Invalid email or password', 'error');
+                }
+            } else {
+                // Signup logic
+                const existingUser = users.find(u => u.email === email);
+                if (existingUser) {
+                    showNotification('Email already registered', 'error');
+                    return;
+                }
+                
+                const newUser = {
+                    email,
+                    password,
+                    fullName: '',
+                    country: '',
+                    phone: '',
+                    bankDetails: '',
+                    binanceId: '',
+                    trc20Address: '',
+                    balance: 5.00, // $5 welcome bonus
+                    vipLevel: 0,
+                    vipAmount: 0,
+                    referralCode: generateReferralCode(),
+                    referredBy: getReferralCodeFromURL(),
+                    referralEarnings: 0,
+                    transactions: [
+                        { type: 'Welcome Bonus', amount: 5.00, date: new Date().toISOString() }
+                    ],
+                    profileComplete: false
+                };
+                
+                users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                currentUser = newUser;
+                localStorage.setItem('loggedInUser', email);
+                
+                showNotification('Account created successfully! $5 bonus added.', 'success');
+                showProfilePage();
+                
+                // Increment active users count
+                updateActiveUsers();
+            }
+        }
+
+        // Get referral code from URL if present
+        function getReferralCodeFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('ref') || '';
+        }
+
+        // Handle logout
+        function handleLogout() {
+            currentUser = null;
+            localStorage.removeItem('loggedInUser');
+            showAuth();
+            authForm.reset();
+        }
+
+        // Handle deposit submit
+        function handleDepositSubmit() {
+            const amount = parseFloat(depositAmount.value);
+            
+            if (isNaN(amount) || amount < 10) {
+                showNotification('Minimum deposit amount is $10', 'error');
+                return;
+            }
+            
+            if (!depositReceipt.files || depositReceipt.files.length === 0) {
+                showNotification('Please upload payment proof', 'error');
+                return;
+            }
+            
+            currentDepositAmount = amount;
+            depositStep1.style.display = 'none';
+            depositStep2.style.display = 'block';
+            
+            // Setup mPIN inputs
+            setupMPINInputs('deposit');
+        }
+
+        // Handle deposit confirmation with mPIN
+        function handleDepositConfirm() {
+            const enteredCode = mpinInputs.join('');
+            
+            // Validate code
+            if (enteredCode.length !== 6) {
+                showNotification('Please enter a 6-digit code', 'error');
+                return;
+            }
+            
+            if (!depositCodes.includes(enteredCode)) {
+                showNotification('Invalid deposit code', 'error');
+                return;
+            }
+            
+            if (usedDepositCodes.includes(enteredCode)) {
+                showNotification('This code has already been used', 'error');
+                return;
+            }
+            
+            // Mark code as used
+            usedDepositCodes.push(enteredCode);
+            localStorage.setItem('usedDepositCodes', JSON.stringify(usedDepositCodes));
+            
+            // Update user balance
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const userIndex = users.findIndex(u => u.email === currentUser.email);
+            
+            if (userIndex !== -1) {
+                users[userIndex].balance += currentDepositAmount;
+                
+                // Add transaction
+                users[userIndex].transactions.push({
+                    type: 'Deposit',
+                    amount: currentDepositAmount,
+                    date: new Date().toISOString()
+                });
+                
+                localStorage.setItem('users', JSON.stringify(users));
+                currentUser = users[userIndex];
+                
+                // Show success
+                depositStep2.style.display = 'none';
+                depositSuccess.style.display = 'block';
+                depositSuccessAmount.textContent = currentDepositAmount.toFixed(2);
+                
+                // Update UI after delay
+                setTimeout(() => {
+                    updateUserUI();
+                }, 3000);
+            }
+        }
+
+        // Handle withdraw submit
+        function handleWithdrawSubmit() {
+            const amount = parseFloat(withdrawAmount.value);
+            
+            if (isNaN(amount) || amount < 10) {
+                showNotification('Minimum withdrawal amount is $10', 'error');
+                return;
+            }
+            
+            if (!withdrawWallet.value) {
+                showNotification('Please enter wallet address', 'error');
+                return;
+            }
+            
+            if (amount > currentUser.balance) {
+                showNotification('Insufficient balance', 'error');
+                return;
+            }
+            
+            currentWithdrawAmount = amount;
+            withdrawStep1.style.display = 'none';
+            withdrawStep2.style.display = 'block';
+            
+            // Setup mPIN inputs
+            setupMPINInputs('withdraw');
+        }
+
+        // Handle withdraw confirmation with mPIN
+        function handleWithdrawConfirm() {
+            const enteredCode = mpinInputs.join('');
+            
+            // Validate code
+            if (enteredCode.length !== 6) {
+                showNotification('Please enter a 6-digit code', 'error');
+                return;
+            }
+            
+            if (!withdrawCodes.includes(enteredCode)) {
+                showNotification('Invalid withdrawal code', 'error');
+                return;
+            }
+            
+            if (usedWithdrawCodes.includes(enteredCode)) {
+                showNotification('This code has already been used', 'error');
+                return;
+            }
+            
+            // Mark code as used
+            usedWithdrawCodes.push(enteredCode);
+            localStorage.setItem('usedWithdrawCodes', JSON.stringify(usedWithdrawCodes));
+            
+            // Update user balance
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const userIndex = users.findIndex(u => u.email === currentUser.email);
+            
+            if (userIndex !== -1) {
+                users[userIndex].balance -= currentWithdrawAmount;
+                
+                // Add transaction
+                users[userIndex].transactions.push({
+                    type: 'Withdrawal',
+                    amount: -currentWithdrawAmount,
+                    date: new Date().toISOString()
+                });
+                
+                localStorage.setItem('users', JSON.stringify(users));
+                currentUser = users[userIndex];
+                
+                // Show success
+                withdrawStep2.style.display = 'none';
+                withdrawSuccess.style.display = 'block';
+                withdrawSuccessAmount.textContent = currentWithdrawAmount.toFixed(2);
+                
+                // Update UI after delay
+                setTimeout(() => {
+                    updateUserUI();
+                }, 3000);
+            }
+        }
+
+        // Handle invest submit
+        function handleInvestSubmit() {
+            if (!investReceipt.files || investReceipt.files.length === 0) {
+                showNotification('Please upload payment proof', 'error');
+                return;
+            }
+            
+            investStep1.style.display = 'none';
+            investStep2.style.display = 'block';
+            
+            // Setup mPIN inputs
+            setupMPINInputs('invest');
+        }
+
+        // Handle invest confirmation with mPIN
+        function handleInvestConfirm() {
+            const enteredCode = mpinInputs.join('');
+            
+            // Validate code
+            if (enteredCode.length !== 6) {
+                showNotification('Please enter a 6-digit code', 'error');
+                return;
+            }
+            
+            if (!depositCodes.includes(enteredCode)) {
+                showNotification('Invalid investment code', 'error');
+                return;
+            }
+            
+            if (usedDepositCodes.includes(enteredCode)) {
+                showNotification('This code has already been used', 'error');
+                return;
+            }
+            
+            // Mark code as used
+            usedDepositCodes.push(enteredCode);
+            localStorage.setItem('usedDepositCodes', JSON.stringify(usedDepositCodes));
+            
+            // Update user VIP status
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const userIndex = users.findIndex(u => u.email === currentUser.email);
+            
+            if (userIndex !== -1) {
+                // Determine VIP level based on package amount
+                let vipLevel = 0;
+                if (currentPackageAmount >= 1000) vipLevel = 5;
+                else if (currentPackageAmount >= 500) vipLevel = 4;
+                else if (currentPackageAmount >= 300) vipLevel = 3;
+                else if (currentPackageAmount >= 100) vipLevel = 2;
+                else if (currentPackageAmount >= 50) vipLevel = 1;
+                
+                users[userIndex].vipLevel = vipLevel;
+                users[userIndex].vipAmount = currentPackageAmount;
+                
+                // Add transaction
+                users[userIndex].transactions.push({
+                    type: `VIP ${vipLevel} Investment`,
+                    amount: -currentPackageAmount,
+                    date: new Date().toISOString()
+                });
+                
+                localStorage.setItem('users', JSON.stringify(users));
+                currentUser = users[userIndex];
+                
+                // Show success
+                investStep2.style.display = 'none';
+                investSuccess.style.display = 'block';
+                investSuccessAmount.textContent = currentPackageAmount.toFixed(2);
+                
+                // Update UI after delay
+                setTimeout(() => {
+                    updateUserUI();
+                }, 3000);
+            }
+        }
+
+        // Setup mPIN inputs
+        function setupMPINInputs(type) {
+            const inputs = document.querySelectorAll(`#${type}-step-2 .mpin-input`);
+            mpinInputs = Array(6).fill('');
+            
+            inputs.forEach((input, index) => {
+                input.value = '';
+                input.addEventListener('input', (e) => {
+                    if (e.target.value.length === 1) {
+                        mpinInputs[index] = e.target.value;
+                        if (index < 5) {
+                            inputs[index + 1].focus();
+                        }
+                    } else if (e.target.value.length === 0) {
+                        mpinInputs[index] = '';
+                        if (index > 0) {
+                            inputs[index - 1].focus();
+                        }
+                    }
+                });
+                
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && e.target.value.length === 0 && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+            });
+            
+            // Focus first input
+            inputs[0].focus();
+        }
+
+        // Update wallet address based on selected method
+        function updateWalletAddress() {
+            const method = depositMethod.value;
+            
+            if (method === 'trc20') {
+                walletAddress.textContent = 'TFXtR9SRtUFjxHTDUTW3MCah3um8qxDwFt';
+            } else if (method === 'erc20') {
+                walletAddress.textContent = '0xeB00d52BB61b059878930997a26b53722A62326c';
+            }
+        }
+
+        // Update invest wallet address based on selected method
+        function updateInvestWalletAddress() {
+            const method = investMethod.value;
+            
+            if (method === 'trc20') {
+                investWalletAddress.textContent = 'TFXtR9SRtUFjxHTDUTW3MCah3um8qxDwFt';
+            } else if (method === 'erc20') {
+                investWalletAddress.textContent = '0xeB00d52BB61b059878930997a26b53722A62326c';
+            }
+        }
+
+        // Copy referral link to clipboard
+        function copyReferralLink() {
+            const referralLink = `${window.location.origin}${window.location.pathname}?ref=${currentUser.referralCode}`;
+            
+            navigator.clipboard.writeText(referralLink).then(() => {
+                showNotification('Referral link copied to clipboard!', 'success');
+            }).catch(() => {
+                showNotification('Failed to copy referral link', 'error');
+            });
+        }
+
+        // Handle profile form submit
+        function handleProfileSubmit(e) {
+            e.preventDefault();
+            
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const userIndex = users.findIndex(u => u.email === currentUser.email);
+            
+            if (userIndex !== -1) {
+                users[userIndex].fullName = fullName.value;
+                users[userIndex].country = country.value;
+                users[userIndex].phone = phone.value;
+                users[userIndex].bankDetails = bankDetails.value;
+                users[userIndex].binanceId = binanceId.value;
+                users[userIndex].trc20Address = trc20Address.value;
+                users[userIndex].profileComplete = true;
+                
+                localStorage.setItem('users', JSON.stringify(users));
+                currentUser = users[userIndex];
+                
+                showNotification('Profile saved successfully!', 'success');
+                showDashboard();
+            }
+        }
+
+        // Save users to localStorage
+        function saveUsers() {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const userIndex = users.findIndex(u => u.email === currentUser.email);
+            
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+        }
+
+        // Show notification
+        function showNotification(message, type) {
+            notification.className = `notification ${type}`;
+            notificationIcon.className = `notification-icon notification-${type}`;
+            notificationIcon.textContent = type === 'success' ? '✓' : '!';
+            notificationMessage.textContent = message;
+            
+            notification.classList.add('active');
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                notification.classList.remove('active');
+            }, 5000);
+        }
+
+        // Update active users count with animation
+        function updateActiveUsers() {
+            let count = 8756;
+            const interval = setInterval(() => {
+                count += Math.floor(Math.random() * 5) + 1;
+                activeUsers.textContent = count.toLocaleString();
+            }, 3000);
+        }
+
+        // Initialize the app
+        init();
+
+        // Simulate daily profit addition (for demo purposes)
+        setInterval(() => {
+            if (currentUser && currentUser.vipLevel > 0) {
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const userIndex = users.findIndex(u => u.email === currentUser.email);
+                
+                if (userIndex !== -1) {
+                    const dailyReturn = getDailyReturn(users[userIndex].vipLevel);
+                    const dailyProfit = users[userIndex].vipAmount * dailyReturn / 100;
+                    
+                    users[userIndex].balance += dailyProfit;
+                    users[userIndex].transactions.push({
+                        type: 'Daily Profit',
+                        amount: dailyProfit,
+                        date: new Date().toISOString()
+                    });
+                    
+                    localStorage.setItem('users', JSON.stringify(users));
+                    currentUser = users[userIndex];
+                    updateUserUI();
+                }
+            }
+        }, 30000); // Every 30 seconds for demo (would be 24 hours in real app)
+    </script>
+</body>
+</html>
